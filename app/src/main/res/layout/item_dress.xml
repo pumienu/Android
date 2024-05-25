@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="12dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/relativelayout"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <TextView
+            android:id="@+id/idTVName"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/name_product_holder"
+            android:text="Product Name"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.773" />
+
+        <TextView
+            android:id="@+id/idTVPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:text="Price"
+            android:textColor="#15F820"
+            android:textSize="20sp"
+            app:drawableStartCompat="@drawable/money"
+            app:layout_constraintEnd_toEndOf="@id/idTVName"
+            app:layout_constraintStart_toStartOf="@id/idTVName"
+            app:layout_constraintTop_toBottomOf="@id/idTVName" />
+
+        <TextView
+            android:id="@+id/idTVDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:drawablePadding="8dp"
+            android:text="Desc"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/idTVPrice"
+            app:layout_constraintStart_toStartOf="@id/idTVPrice"
+            app:layout_constraintTop_toBottomOf="@id/idTVPrice" />
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="add"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.936"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.312" />
+
+        <ImageView
+            android:id="@+id/idIVSSImage"
+            android:layout_width="249dp"
+            android:layout_height="217dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="89dp"
+            android:layout_marginBottom="167dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/vay0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
