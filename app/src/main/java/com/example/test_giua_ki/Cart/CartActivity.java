@@ -42,6 +42,12 @@ public class CartActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 1);
         rvDress.setLayoutManager(mLayoutManager);
 
+
+        // Load saved cart data
+        DBHelper dbHelper = new DBHelper(this);
+        this.cart = dbHelper.getFirstCartByStaffId(1);
+
+
         CartAdapter rvAdapter = new CartAdapter(this);
         rvDress.setAdapter(rvAdapter);
         tvTotal.setText("Total: $" + this.cart.getTotalPrice());
@@ -51,7 +57,8 @@ public class CartActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     DBHelper dbHelper = new DBHelper(CartActivity.this);
-                    int cart_id = (int)dbHelper.createCart(1);
+                    Cart c = dbHelper.getFirstCartByStaffId(1);
+                    int cart_id = c.getId();
                     ArrayList<Dress> dresses = cart.getDressesFromCart();
                     for (Dress p : dresses) {
                         dbHelper.insertDressesToCart(cart_id, p.getId());

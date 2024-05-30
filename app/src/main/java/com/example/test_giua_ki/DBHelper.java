@@ -9,12 +9,15 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import com.example.test_giua_ki.Cart.Model.Cart;
 import com.example.test_giua_ki.Dress.Model.Dress;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBName = "test_gk.db";
@@ -121,6 +124,44 @@ public class DBHelper extends SQLiteOpenHelper {
         long newCartId = myDB.insert("carts", null, contentValues);
         return newCartId;
     }
+
+    public Cart getFirstCartByStaffId(int staff_id) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT * FROM carts WHERE staff_id = ? LIMIT 1", new String[]{String.valueOf(staff_id)});
+
+            Cart cart = null;
+            if (cursor.moveToFirst()) {
+                int id = cursor.getInt(cursor.getColumnIndex("id"));
+                cart = new Cart();
+                cart.setId(id);
+            }
+            // create cart if not exists
+            if (cart == null) {
+                long newCartId = createCart(staff_id);
+                cart = new Cart();
+                cart.setId((int) newCartId);
+            }
+
+            cursor.close();
+
+            Cursor itemCursor = db.rawQuery("SELECT cart_dress.dress_id, COUNT(cart_dress.dress_id) as quantity " +
+                "FROM carts " +
+                "INNER JOIN cart_dress ON carts.id = cart_dress.cart_id " +
+                "WHERE carts.staff_id = ? " +
+                "GROUP BY cart_dress.dress_id", new String[]{String.valueOf(staff_id)});
+
+            if (itemCursor.moveToFirst()) {
+                do {
+                    int dress_id = itemCursor.getInt(itemCursor.getColumnIndex("dress_id"));
+                    int quantity = itemCursor.getInt(itemCursor.getColumnIndex("quantity"));
+                    cart.setCartItem(dress_id, quantity);
+                } while (itemCursor.moveToNext());
+            }
+            itemCursor.close();
+
+
+            return cart;
+        }
 
 
     public boolean insertDressesToCart(int cart_id, int dress_id) {
