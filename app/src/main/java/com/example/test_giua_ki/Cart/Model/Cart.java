@@ -11,12 +11,10 @@ public class Cart {
     private int id;
     private int staff_id;
     private static Map<Integer, Integer> cartList = new HashMap<>();
-
     private static float totalPrice;
-
-    private static DressRepository dressRepository = new DressRepository(); // Đổi từ private thành static
-
+    private static DressRepository dressRepository = new DressRepository();
     private static Cart instance;
+
     public Cart(int id, int staff_id) {
         this.id = id;
         this.staff_id = staff_id;
@@ -24,6 +22,7 @@ public class Cart {
 
     public Cart() {
     }
+
     public static Cart getInstance() {
         if (instance == null) {
             instance = new Cart();
@@ -31,7 +30,6 @@ public class Cart {
         return instance;
     }
 
-    // Phương thức mới để truy cập dressRepository
     public static DressRepository getDressRepository() {
         return dressRepository;
     }
@@ -39,6 +37,7 @@ public class Cart {
     public Map<Integer, Integer> getCartList() {
         return cartList;
     }
+
     public int getId() {
         return id;
     }
@@ -89,6 +88,26 @@ public class Cart {
         if (quantity <= 0) return;
         cartList.put(p.getId(), quantity - 1);
         totalPrice -= p.getPrice();
+    }
+
+    public void setCartItem(Integer dressId, Integer quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative");
+        }
+        if (quantity == 0) {
+            cartList.remove(dressId);
+        } else {
+            cartList.put(dressId, quantity);
+        }
+        recalculateTotalPrice();
+    }
+
+    private void recalculateTotalPrice() {
+        totalPrice = 0;
+        for (Map.Entry<Integer, Integer> entry : cartList.entrySet()) {
+            Dress dress = dressRepository.getDress(entry.getKey());
+            totalPrice += dress.getPrice() * entry.getValue();
+        }
     }
 
     public ArrayList<Dress> getDressesFromCart() {

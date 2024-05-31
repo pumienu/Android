@@ -174,34 +174,5 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public ArrayList<Dress> getDressesInCart(int cart_id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Dress> dressList = new ArrayList<>();
-
-        Cursor cursor = db.rawQuery("SELECT dresses.* FROM dresses " +
-                "INNER JOIN cart_dress ON dresses.id = cart_dress.dress_id " +
-                "WHERE cart_dress.cart_id = ?", new String[]{String.valueOf(cart_id)});
-
-        if (cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(cursor.getColumnIndex("id"));
-                String name = cursor.getString(cursor.getColumnIndex("name"));
-                String imageUri = cursor.getString(cursor.getColumnIndex("imageUri"));
-                float price = cursor.getFloat(cursor.getColumnIndex("price"));
-                String desc = cursor.getString(cursor.getColumnIndex("description"));
-
-                Dress dress = new Dress(id, name);
-                dress.setImage(Uri.parse(imageUri));
-                dress.setPrice(price);
-                dress.setDesc(desc);
-
-                dressList.add(dress);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-
-        return dressList;
-    }
-
 
 }

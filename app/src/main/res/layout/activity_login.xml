@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/my_color_backgroud"
+    android:background="@drawable/border"
     tools:context=".LoginActivity">
 
     <FrameLayout
