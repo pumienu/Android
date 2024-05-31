@@ -126,10 +126,11 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cart getFirstCartByStaffId(int staff_id) {
-            SQLiteDatabase db = this.getReadableDatabase();
+            SQLiteDatabase db = this.getReadableDatabase(); //chi doc du lieu
             Cursor cursor = db.rawQuery("SELECT * FROM carts WHERE staff_id = ? LIMIT 1", new String[]{String.valueOf(staff_id)});
 
             Cart cart = null;
+            // kiem tra xem da co gio hang nao chua
             if (cursor.moveToFirst()) {
                 int id = cursor.getInt(cursor.getColumnIndex("id"));
                 cart = new Cart();
@@ -143,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
             }
 
             cursor.close();
-
+            // truy van lay thong tin
             Cursor itemCursor = db.rawQuery("SELECT cart_dress.dress_id, COUNT(cart_dress.dress_id) as quantity " +
                 "FROM carts " +
                 "INNER JOIN cart_dress ON carts.id = cart_dress.cart_id " +
@@ -172,6 +173,15 @@ public class DBHelper extends SQLiteOpenHelper {
         long result = myDB.insert("cart_dress", null, contentValues);
         return result != -1;
     }
+
+    public boolean removeAllCarts() {
+        SQLiteDatabase myDB = this.getWritableDatabase();
+        myDB.execSQL("DELETE FROM cart_dress");
+        int result = myDB.delete("carts", null, null);
+        return result > 0;
+    }
+
+
 
 
 

@@ -120,4 +120,8 @@ public class Cart {
         }
         return dresses;
     }
+    public void clearCart() {
+        cartList.clear();
+        totalPrice = 0;
+    }
 }

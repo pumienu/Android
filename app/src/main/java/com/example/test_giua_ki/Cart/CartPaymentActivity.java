@@ -10,20 +10,25 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.test_giua_ki.Cart.Model.Cart;
 import com.example.test_giua_ki.MainActivity;
 import com.example.test_giua_ki.R;
 import com.example.test_giua_ki.RegisterActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.test_giua_ki.DBHelper;
 
 public class CartPaymentActivity extends AppCompatActivity {
     Button btnPay;
     TextView textViewTotalAmount;
     FloatingActionButton btnRe;
 
+    private static DBHelper dbHelper;
+
     EditText usname, email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new DBHelper(this);
         setContentView(R.layout.activity_cart_payment);
 
         textViewTotalAmount = findViewById(R.id.textViewTotalAmount);
@@ -45,6 +50,8 @@ public class CartPaymentActivity extends AppCompatActivity {
                 if (user.isEmpty() || mail.isEmpty()) {
                     Toast.makeText(CartPaymentActivity.this, "Please enter required field", Toast.LENGTH_LONG).show();
                 } else {
+                    dbHelper.removeAllCarts();
+                    Cart.getInstance().clearCart();
                     Intent intent = new Intent(CartPaymentActivity.this, CartActivity.class);
                     startActivity(intent);
                     Toast.makeText(CartPaymentActivity.this, "Payment processed successfully", Toast.LENGTH_LONG).show();
