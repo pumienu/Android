@@ -136,7 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cart = new Cart();
                 cart.setId(id);
             }
-            // create cart if not exists
+            // neu chua co thi se khoi tao
             if (cart == null) {
                 long newCartId = createCart(staff_id);
                 cart = new Cart();
@@ -180,9 +180,5 @@ public class DBHelper extends SQLiteOpenHelper {
         int result = myDB.delete("carts", null, null);
         return result > 0;
     }
-
-
-
-
 
 }
