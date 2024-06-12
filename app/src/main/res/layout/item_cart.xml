@@ -73,7 +73,7 @@
             android:background="@color/grey"
             android:enabled="false"
             android:inputType="number"
-            android:text="99"
+            android:text="10"
             android:textAlignment="center"
             android:textStyle="italic|normal" />
 
